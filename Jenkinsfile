@@ -1,26 +1,23 @@
 pipeline {
     agent any
+     tools {
+        maven 'maven'
+        jdk 'java'
+    }
     stages { 
     stage ('init') {
         steps {
-
-            withMaven(maven: maven)
+            echo "PATH = ${PATH}"
+            echo "M2_HOME = ${M2_HOME}"
             sh 'mvn clean compile'
     }
     }
     stage ('Build') {
         steps {
 
-            withMaven(maven: maven)
             sh 'mvn test'
     }
     }
-    stage ('Deploy') {
-        steps {
-
-            withMaven(maven: maven)
-            sh 'mvn deploy'
-    }
-    }
+    
     }
 } 
